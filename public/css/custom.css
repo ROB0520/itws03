@@ -110,7 +110,7 @@ header {
   background-color: var(--color-header) !important;
 }
 
-.bg-blue-900,
+.bg-header,
 .bg-blue-800 {
   background-color: var(--color-header) !important;
 }

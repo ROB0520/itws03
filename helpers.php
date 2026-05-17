@@ -2,6 +2,7 @@
 
 /**
  * Get the Path
+ * 
  * @param string $path Path to View File
  * @return string Full Path to View File
  */
@@ -12,31 +13,34 @@ function basePath($path = "")
 
 /**
  * Load View
+ * 
  * @param string $name View File to Load
- * @return string|null Full path when loaded, otherwise null
+ * @param array $data Data to Pass to View
+ * 
+ * @return null Full path when loaded, otherwise null
  */
-function loadView($name)
+function loadView($name, $data = [])
 {
 	if ($name) {
 		$viewPath = basePath("views/{$name}.view.php");
 
 		if (file_exists($viewPath)) {
+			extract($data);
 			require $viewPath;
-			return $viewPath;
 		} else {
 			echo "<p>View '{$name}' not found.</p>";
-			return null;
 		}
 	} else {
 		echo "<p>No view name provided.</p>";
-		return null;
 	}
+	return null;
 }
 
 /**
  * Load Partial
+ * 
  * @param string $name Partial File to Load
- * @return string|null Full path when loaded, otherwise null
+ * @return null Full path when loaded, otherwise null
  */
 function loadPartial($name)
 {
@@ -45,20 +49,18 @@ function loadPartial($name)
 
 		if (file_exists($partialPath)) {
 			require $partialPath;
-			return $partialPath;
 		} else {
 			echo "<p>Partial '{$name}' not found.</p>";
-			return null;
 		}
 	} else {
 		echo "<p>No partial name provided.</p>";
-		return null;
 	}
+	return null;
 }
 
 /**
  * Inspect Variable
- *
+ * 
  * @param mixed $value
  * @return void
  */
@@ -67,4 +69,15 @@ function inspect($value)
 	echo '<pre>';
 	print_r($value);
 	echo '</pre>';
+}
+
+/**
+ * Format Salary
+ *
+ * @param mixed $salary The salary value to format
+ * @return string The formatted salary string with a dollar sign and two decimal places
+ */
+function formatSalary($salary)
+{
+	return '$' . number_format($salary, 2);
 }

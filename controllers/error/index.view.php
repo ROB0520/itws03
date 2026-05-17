@@ -8,6 +8,7 @@
 		<div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">All Jobs</div>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 			<?php foreach (($listing ?? []) as $listing) : ?>
+				<!-- Job Listing 1: Software Engineer -->
 				<div class="rounded-lg shadow-md bg-card">
 					<div class="p-4">
 						<h2 class="text-xl font-semibold"><?= $listing->title ?></h2>
@@ -23,13 +24,15 @@
 								<strong>Tags:</strong> <?= $listing->tags ?>
 							</li>
 						</ul>
-						<a href="/listings?id=<?= $listing->id ?>"
+						<a href="details.html"
 							class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium text-tag-foreground bg-tag hover:bg-indigo-200">
 							Details
 						</a>
 					</div>
 				</div>
 			<?php endforeach; ?>
+
+
 		</div>
 </section>
 

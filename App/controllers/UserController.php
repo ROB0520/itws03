@@ -107,7 +107,7 @@ class UserController
 			'state' => $state
 		]);
 
-		$_SESSION['success_msg'] = "Registration successful.";
+		Session::setFlashMessage('success_msg', "Registration successful. You are now logged in.");
 
 		redirect('/auth/login');
 	}

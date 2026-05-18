@@ -95,7 +95,7 @@ class ListingController
 			$query = "INSERT INTO listings ($fields) VALUES ($values)";
 			$this->db->query($query, $newListingData);
 
-			$_SESSION['success_msg'] = "Listing created successfully.";
+			Session::setFlashMessage('success_msg', "Listing created successfully.");
 
 			redirect('/listings');
 		}
@@ -118,13 +118,13 @@ class ListingController
 
 		// Ensure the user is authorized to delete this listing (e.g., they are the owner)
 		if (Authorization::isOwner($listing['user_id'])) {
-			$_SESSION['error_msg'] = "You are not authorized to delete this listing.";
+			Session::setFlashMessage('success_msg', "You do not have permission to delete this listing.");
 			redirect('/listings/' . $listingId);
 		}
 
 		$this->db->query('DELETE FROM listings WHERE id = :id', ['id' => $listingId]);
 
-		$_SESSION['success_msg'] = "Listing deleted successfully.";
+		Session::setFlashMessage('success_msg', "Listing deleted successfully.");
 
 		redirect('/listings');
 	}
@@ -194,7 +194,7 @@ class ListingController
 
 			$this->db->query($query, array_merge($updatedListingData, ['id' => $listingId]));
 
-			$_SESSION['success_msg'] = "Listing updated successfully.";
+			Session::setFlashMessage('success_msg', "Listing updated successfully.");
 
 			redirect('/listings/' . $listingId);
 		}

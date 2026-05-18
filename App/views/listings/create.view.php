@@ -35,9 +35,7 @@
 				<textarea
 					name="description"
 					placeholder="Job Description"
-					class="w-full px-4 py-2 border rounded focus:outline-none">
-					<?= $_POST['description'] ?? '' ?>
-				</textarea>
+					class="w-full px-4 py-2 border rounded focus:outline-none"><?= $_POST['description'] ?? '' ?></textarea>
 			</div>
 			<div class="mb-4">
 				<input

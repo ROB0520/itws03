@@ -1,0 +1,16 @@
+{
+	"name": "rob0520/itws03",
+	"description": "Job Seeker Web Application",
+	"authors": [
+		{
+			"name": "Alecz R.",
+			"email": "contact.aleczr@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Framework\\": "Framework/",
+			"App\\": "App/"
+		}
+	}
+}

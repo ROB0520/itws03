@@ -5,7 +5,7 @@
 <section class="container mx-auto p-4 mt-4">
 	<div class="rounded-lg shadow-md bg-card p-3">
 		<div class="flex justify-between items-center">
-			<a class="block p-4 text-link" href="/listings">
+			<a class="block p-4 text-primary" href="/listings">
 				<i class="fa fa-arrow-alt-circle-left"></i>
 				Back To Listings
 			</a>

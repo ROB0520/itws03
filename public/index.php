@@ -3,12 +3,13 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
-
 require __DIR__ . '/../vendor/autoload.php';
 require '../helpers.php';
 
 use Framework\Router;
+use Framework\Session;
+
+Session::start();
 
 $router = new Router();
 

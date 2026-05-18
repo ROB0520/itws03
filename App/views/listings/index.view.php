@@ -25,7 +25,7 @@
 								</li>
 							<? endif; ?>
 						</ul>
-						<a href="/listing?id=<?= $listing->id ?>"
+						<a href="/listings/<?= $listing->id ?>"
 							class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium text-tag-foreground bg-tag hover:bg-indigo-200">
 							Details
 						</a>

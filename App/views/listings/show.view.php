@@ -30,9 +30,11 @@
 				<li class="mb-2">
 					<strong>Location:</strong> <?= isset($listing) ? $listing->city . ', ' . $listing->state : 'N/A' ?>
 				</li>
-				<li class="mb-2">
-					<strong>Tags:</strong> <?= isset($listing) ? $listing->tags : 'N/A' ?>
-				</li>
+				<? if (!empty($listing->tags)) : ?>
+					<li class="mb-2">
+						<strong>Tags:</strong> <?= $listing->tags ?>
+					</li>
+				<? endif; ?>
 			</ul>
 		</div>
 	</div>

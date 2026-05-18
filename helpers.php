@@ -97,3 +97,15 @@ function sanitizeInput($dirty)
 {
 	return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
 }
+
+/**
+ * Redirect to a given URL
+ * 
+ * @param string $url The URL to redirect to
+ * @return void
+ */
+function redirect($url)
+{
+	header('Location: ' . $url);
+	exit;
+}

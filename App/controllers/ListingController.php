@@ -49,7 +49,7 @@ class ListingController
 
 	public function store()
 	{
-		$allowedFields = ['title', 'description', 'salary', 'requirements', 'benefits', 'company', 'address', 'city', 'state', 'phone', 'email'];
+		$allowedFields = ['title', 'description', 'salary', 'requirements', 'benefits', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email'];
 
 		$newListingData = array_intersect_key($_POST, array_flip($allowedFields));
 
@@ -57,12 +57,12 @@ class ListingController
 
 		$newListingData = array_map('sanitizeInput', $newListingData);
 
-		$requiredFields = ['title', 'description', 'email', 'city', 'state'];
+		$requiredFields = ['title', 'description', 'salary', 'email', 'city', 'state'];
 
 		$errors = [];
 
 		foreach ($requiredFields as $field) {
-			if (empty($newListingData[$field]) || !Validation::string($field, $newListingData[$field])) {
+			if (empty($newListingData[$field]) || !Validation::string($newListingData[$field])) {
 				$errors[$field] = ucfirst($field) . " is required and must be valid.";
 			}
 		}
@@ -70,7 +70,30 @@ class ListingController
 		if (!empty($errors)) {
 			loadView('listings/create', ['errors' => $errors, 'old' => $newListingData]);
 		} else {
-			echo "New listing data is valid. Ready to save to the database.";
+			$fields = [];
+
+			foreach ($newListingData as $field => $value) {
+				$fields[] = $field;
+			}
+
+			$fields = implode(', ', $fields);
+
+			$values = [];
+
+			foreach ($newListingData as $field => $value) {
+				if ($value === "") {
+					$newListingData[$field] = null;
+				} else {
+					$values[] = ":" . $field;
+				}
+			}
+
+			$values = implode(', ', $values);
+
+			$query = "INSERT INTO listings ($fields) VALUES ($values)";
+			$this->db->query($query, $newListingData);
+
+			redirect('/listings');
 		}
 	}
 }

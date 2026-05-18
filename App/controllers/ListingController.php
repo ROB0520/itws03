@@ -120,4 +120,75 @@ class ListingController
 
 		redirect('/listings');
 	}
+
+	public function edit($params)
+	{
+		$listingId = $params['id'] ?? null;
+
+		if (!$listingId) {
+			ErrorController::notFound("The listing you are trying to edit could not be found.");
+			exit;
+		}
+
+		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+
+		if (!$listing) {
+			ErrorController::notFound("The listing you are trying to edit could not be found.");
+			exit;
+		}
+
+		loadView('listings/edit', ['listing' => $listing]);
+	}
+
+	public function update($params)
+	{
+		$listingId = $params['id'] ?? null;
+
+		if (!$listingId) {
+			ErrorController::notFound("The listing you are trying to update could not be found.");
+			exit;
+		}
+
+		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+
+		if (!$listing) {
+			ErrorController::notFound("The listing you are trying to update could not be found.");
+			exit;
+		}
+
+		$allowedFields = ['title', 'description', 'salary', 'requirements', 'benefits', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email'];
+
+		$updatedListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+		$updatedListingData = array_map('sanitizeInput', $updatedListingData);
+
+		$requiredFields = ['title', 'description', 'salary', 'email', 'city', 'state'];
+
+		$errors = [];
+
+		foreach ($requiredFields as $field) {
+			if (empty($updatedListingData[$field]) || !Validation::string($updatedListingData[$field])) {
+				$errors[$field] = ucfirst($field) . " is required and must be valid.";
+			}
+		}
+
+		if (!empty($errors)) {
+			loadView('listings/edit', ['errors' => $errors, 'listing' => $listing]);
+		} else {
+			$updateFields = [];
+
+			foreach (array_keys($updatedListingData) as $field) {
+				$updateFields[] = "$field = :$field";
+			}
+			$updateFields = implode(', ', $updateFields);
+
+			$query = "UPDATE listings SET $updateFields WHERE id = :id";
+
+			$this->db->query($query, array_merge($updatedListingData, ['id' => $listingId]));
+
+			$_SESSION['success_msg'] = "Listing updated successfully.";
+
+			redirect('/listings/' . $listingId);
+		}
+	}
 }

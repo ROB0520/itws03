@@ -117,7 +117,7 @@ class ListingController
 		}
 
 		// Ensure the user is authorized to delete this listing (e.g., they are the owner)
-		if (Authorization::isOwner($listing->user_id)) {
+		if (!Authorization::isOwner($listing->user_id)) {
 			Session::setFlashMessage('error_msg', "You do not have permission to delete this listing.");
 			redirect('/listings/' . $listingId);
 		}
@@ -146,7 +146,7 @@ class ListingController
 		}
 
 		// Ensure the user is authorized to edit this listing (e.g., they are the owner)
-		if (Authorization::isOwner($listing->user_id)) {
+		if (!Authorization::isOwner($listing->user_id)) {
 			Session::setFlashMessage('error_msg', "You do not have permission to edit this listing.");
 			redirect('/listings/' . $listingId);
 		}
@@ -171,7 +171,7 @@ class ListingController
 		}
 
 		// Ensure the user is authorized to update this listing (e.g., they are the owner)
-		if (Authorization::isOwner($listing->user_id)) {
+		if (!Authorization::isOwner($listing->user_id)) {
 			Session::setFlashMessage('error_msg', "You do not have permission to update this listing.");
 			redirect('/listings/' . $listingId);
 		}

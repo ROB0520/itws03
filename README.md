@@ -1,4 +1,4 @@
-# QuestBoard (ws03)
+# QuestBoard (IT-WS03 Case Study)
 
 A small custom PHP MVC-style web application for listing jobs and showcasing a case-study blog post migrated to the QuestBoard site.
 

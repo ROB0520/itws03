@@ -23,5 +23,5 @@ $router->post('/auth/register', 'UserController@store', ['guest']);
 $router->post('/auth/logout', 'UserController@logout', ['auth']);
 $router->post('/auth/login', 'UserController@authenticate', ['guest']);
 
-// Additional routes for the blog and tenary case studies
+// Additional routes for the blog case study
 $router->get('/blog', 'BlogController@index');
